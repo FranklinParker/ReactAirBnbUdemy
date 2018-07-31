@@ -27,3 +27,6 @@ yarn-error.log*
 .idea/ReactAirBnbUdemy.iml
 .idea/vcs.xml
 .idea/workspace.xml
+
+/src/**/*.css
+.idea/watcherTasks.xml
