@@ -20,8 +20,8 @@
     "start": "npm-run-all -p watch-css start-js",
     "start-js": "react-scripts start",
     "build-js": "react-scripts build",
-    "build": "npm-run-all build-js && build-css",
     "build-css": "node-sass-chokidar ./src -o ./src",
+    "build": "npm-run-all build-css build-js",
     "watch-css": "npm run build-css && node-sass-chokidar ./src -o ./src --watch --recursive",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
