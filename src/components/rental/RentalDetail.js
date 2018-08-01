@@ -3,22 +3,32 @@ import {connect} from "react-redux";
 import * as actions from "../../actions";
 
 export class RentalDetail extends Component {
-  componentWillMount(){
+  componentWillMount() {
     const rentalId = this.props.match.params.id;
     this.props.dispatch(actions.fetchRentalById(rentalId));
   }
+
   render() {
-    return (
-      <div className="container">
-        <h1 className="blue">I AM detail Title:{this.props.rental.title}</h1>
-        <h1 className="blue">I AM city:{this.props.rental.city}</h1>
-      </div>
-    );
+    const rental = this.props.rental;
+    if (rental.id) {
+      return (
+        <div className="container">
+          <h1 className="blue">I AM detail Title:{rental.title}</h1>
+          <h1 className="blue">I AM city:{rental.city}</h1>
+        </div>
+      );
+    } else {
+      return (
+        <div className="container">
+          <h1 className="blue">Loading</h1>
+        </div>
+      );
+    }
   }
 }
 
 
-function mapStateToProps(state){
+function mapStateToProps(state) {
   return {
     rental: state.rental.data
   }
