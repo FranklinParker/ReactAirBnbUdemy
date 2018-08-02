@@ -55,10 +55,6 @@ export const fetchRentalById = (rentalId) => {
       .then(resp=> resp.data)
       .then(rental=> dispatch(fetchRentalByIdSuccess(rental))
       );
-
-
-
-
   }
 }
 
