@@ -4,13 +4,13 @@ import * as actions from "../../../actions/index";
 
 export class RentalDetail extends Component {
   componentWillMount() {
-    const rentalId = this.props.match.params.id;
+    const rentalId = this.props.match.params._id;
     this.props.dispatch(actions.fetchRentalById(rentalId));
   }
 
   render() {
     const rental = this.props.rental;
-    if (rental.id) {
+    if (rental._id) {
       return (
         <div className="container">
           <h1 className="blue">I AM detail Title:{rental.title}</h1>

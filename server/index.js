@@ -4,6 +4,7 @@ const rentalRoutes = require('./routes/rental');
 const userRoutes = require('./routes/user');
 const bookingRoutes = require('./routes/booking');
 const path = require('path');
+const cors = require('cors');
 
 const bodyParser = require('body-parser');
 
