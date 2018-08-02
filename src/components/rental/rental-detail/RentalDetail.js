@@ -4,7 +4,7 @@ import * as actions from "../../../actions/index";
 
 export class RentalDetail extends Component {
   componentWillMount() {
-    const rentalId = this.props.match.params._id;
+    const rentalId = this.props.match.params.id;
     this.props.dispatch(actions.fetchRentalById(rentalId));
   }
 
