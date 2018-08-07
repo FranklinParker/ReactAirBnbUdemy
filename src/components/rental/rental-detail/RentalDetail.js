@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from "react-redux";
 import * as actions from "../../../actions/index";
 import {RentalDetailInfo} from "./RentalDetailInfo";
-import {MapWithAMarker} from "../../map/GoogleMap";
+import { RentalMap} from "./RentalMap";
 
 
 export class RentalDetail extends Component {
@@ -22,12 +22,7 @@ export class RentalDetail extends Component {
                 <img src={rental.image} alt=''></img>
               </div>
               <div className='col-md-6'>
-                <MapWithAMarker
-                  googleMapURL="https://maps.googleapis.com/maps/api/js?key=key&libraries=geometry,drawing,places"
-                  loadingElement={<div style={{height: `100%`}}/>}
-                  containerElement={<div style={{height: `360px`}}/>}
-                  mapElement={<div style={{height: `100%`}}/>}
-                />
+                <RentalMap location={`${rental.city}, ${rental.street}`}/>
               </div>
             </div>
           </div>
