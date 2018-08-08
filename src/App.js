@@ -7,11 +7,19 @@ import {Provider} from 'react-redux';
 import './App.css';
 import Login from "./components/login/Login";
 import {Register} from "./components/register/Register";
+import * as actions from 'actions';
 
 const store = require('./reducers').init();
 
 class App extends Component {
 
+  componentWillMount() {
+    this.checkAuthState();
+  }
+
+  checkAuthState() {
+    store.dispatch(actions.checkAuthState());
+  }
   render() {
     return (
       <Provider store={store}>

@@ -1,3 +1,5 @@
+import authService from '../services/auth-service';
+
 import {
   FETCH_RENTAL_BY_ID_SUCCESS,
   FETCH_RENTAL_BY_ID_INIT,
@@ -67,10 +69,9 @@ export const register = (userData) => {
     );
 }
 
-export const loginSuccess = (token) => {
+export const loginSuccess = () => {
 
   return {
-    token,
     type: LOGIN_SUCCESS
   }
 }
@@ -84,16 +85,22 @@ export const loginFailure = (errors) => {
   }
 }
 
+export const checkAuthState = () => {
+  return function (dispatch) {
+    if(authService.isAuthenticated()){
+      dispatch(loginSuccess());
+    }
+  }
+}
 
 export const login = (userData) => {
-
   return function (dispatch) {
 
     axios.post('/api/v1/users/auth', {...userData})
       .then(resp => resp.data)
       .then((token) => {
           localStorage.setItem('auth_token', token);
-          dispatch(loginSuccess(token));
+          dispatch(loginSuccess());
         }
       ).catch(({response}) => {
       dispatch(loginFailure(response.data.errors));
