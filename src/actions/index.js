@@ -61,11 +61,9 @@ export const fetchRentalById = (rentalId) => {
 
 export const register = (userData) => {
   return axios.post('/api/v1/users/register', {...userData})
-    .then((resp) => {
-        return resp.data;
-      },
-      (err) => {
-        return Promise.reject(err.response.data.errors);
-      });
+    .then(
+      resp => resp.data,
+      err => Promise.reject(err.response.data.errors)
+    );
 }
 
