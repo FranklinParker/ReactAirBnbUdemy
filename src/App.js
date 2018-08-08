@@ -5,6 +5,8 @@ import RentalListing from './components/rental/rental-listing/RentalListing';
 import RentalDetail from "./components/rental/rental-detail/RentalDetail";
 import {Provider} from 'react-redux';
 import './App.css';
+import {Login} from "./components/login/Login";
+import {Register} from "./components/register/Register";
 
 const store = require('./reducers').init();
 
@@ -18,6 +20,8 @@ class App extends Component {
             <Header/>
             <div className="container">
               <Route exact path='/' render={() => <Redirect to='/rentals'/>}/>
+              <Route exact path="/login" component={Login}/>
+              <Route exact path="/register" component={Register}/>
               <Route exact path="/rentals" component={RentalListing}/>
               <Route exact path="/rentals/:id" component={RentalDetail}/>
 
