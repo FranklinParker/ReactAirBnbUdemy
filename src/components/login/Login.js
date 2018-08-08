@@ -1,8 +1,11 @@
 import React, {Component} from 'react';
 import LoginForm from './LoginForm';
+import {connect} from "react-redux";
+import * as actions from "../../actions/index";
 
 
-export class Login extends Component {
+
+class Login extends Component {
   constructor() {
     super();
     this.state = {
@@ -12,11 +15,11 @@ export class Login extends Component {
   }
 
   loginUser(userData) {
-    alert(JSON.stringify(userData, null, 2));
+    this.props.dispatch(actions.login(userData));
   }
 
   render() {
-    const {errors, redirect} = this.state;
+    const {errors} = this.state;
     return (
       <section id="login">
         <div className="bwm-form">
@@ -38,4 +41,12 @@ export class Login extends Component {
 
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    auth: state.auth
+  }
+}
+
+export default connect(mapStateToProps)(Login)
 

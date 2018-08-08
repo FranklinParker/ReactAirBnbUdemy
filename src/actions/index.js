@@ -2,7 +2,7 @@ import {
   FETCH_RENTAL_BY_ID_SUCCESS,
   FETCH_RENTAL_BY_ID_INIT,
   FETCH_RENTALS_SUCCESS,
-  FETCH_RENTALS_INIT
+  FETCH_RENTALS_INIT, LOGIN_SUCCESS, LOGIN_FAILURE
 } from "./types";
 
 import axios from 'axios';
@@ -65,5 +65,39 @@ export const register = (userData) => {
       resp => resp.data,
       err => Promise.reject(err.response.data.errors)
     );
+}
+
+export const loginSuccess = (token) => {
+
+  return {
+    token,
+    type: LOGIN_SUCCESS
+  }
+}
+
+
+export const loginFailure = (errors) => {
+
+  return {
+    errors,
+    type: LOGIN_FAILURE
+  }
+}
+
+
+export const login = (userData) => {
+
+  return function (dispatch) {
+
+    axios.post('/api/v1/users/auth', {...userData})
+      .then(resp => resp.data)
+      .then((token) => {
+          localStorage.setItem('auth_token', token);
+          dispatch(loginSuccess(token));
+        }
+      ).catch(({response}) => {
+      dispatch(loginFailure(response.data.errors));
+    })
+  }
 }
 
