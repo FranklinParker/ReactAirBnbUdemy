@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {BrowserRouter, Route, Redirect} from 'react-router-dom';
-import {Header} from './shared/Header';
+import {Header} from './components/shared/Header';
 import RentalListing from './components/rental/rental-listing/RentalListing';
 import RentalDetail from "./components/rental/rental-detail/RentalDetail";
 import {Provider} from 'react-redux';
