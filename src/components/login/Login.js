@@ -19,7 +19,7 @@ class Login extends Component {
   }
 
   render() {
-    const {errors} = this.state;
+    const {errors} = this.props.auth;
     return (
       <section id="login">
         <div className="bwm-form">

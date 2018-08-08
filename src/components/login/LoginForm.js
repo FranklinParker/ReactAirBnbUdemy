@@ -7,7 +7,6 @@ import { minLength4, required} from "../shared/form/validate";
 
 const LoginForm = props => {
   const { handleSubmit, pristine, submitting, submitCb, valid, errors } = props
-
   return (
     <form onSubmit={handleSubmit(submitCb)}>
       <Field
