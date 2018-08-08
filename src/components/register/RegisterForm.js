@@ -1,25 +1,10 @@
 import React from 'react'
 import {Field, reduxForm} from 'redux-form'
+import { bwmInput} from "../shared/form/BwmInput";
 
-const renderField = ({
-                       input,
-                       label,
-                       className,
-                       type,
-                       meta: {touched, error, warning}
-                     }) => (
-  <div className='form-group'>
-    <label>{label}</label>
-    <div className='input-group'>
-      <input {...input} type={type} className={className}/>
-    </div>
-    {touched &&
-    ((error && <div className='alert alert-danger'>{error}</div>))}
-  </div>
-)
 
 const RegisterForm = props => {
-  const {handleSubmit, pristine, reset, submitting, submitCb} = props;
+  const {handleSubmit, pristine, reset, submitting, submitCb, valid} = props;
   return (
     <form onSubmit={handleSubmit(submitCb)}>
 
@@ -27,7 +12,7 @@ const RegisterForm = props => {
         name="username"
         type="text"
         className='form-control'
-        component={renderField}
+        component={bwmInput}
         label='Username'
       />
 
@@ -35,7 +20,7 @@ const RegisterForm = props => {
         name="email"
         type="email"
         className='form-control'
-        component={renderField}
+        component={bwmInput}
         label='Email'
       />
 
@@ -43,7 +28,7 @@ const RegisterForm = props => {
         name="password"
         type="password"
         className='form-control'
-        component={renderField}
+        component={bwmInput}
         label='Password'
       />
       <Field
@@ -51,12 +36,12 @@ const RegisterForm = props => {
         type="password"
         label='Confirm Password'
         className='form-control'
-        component={renderField}
+        component={bwmInput}
       />
       <div>
         <button type="submit"
                 className='btn btn-bwm'
-                disabled={pristine || submitting}>
+                disabled={!valid || pristine || submitting}>
           Submit
         </button>
 
