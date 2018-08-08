@@ -1,58 +1,53 @@
 import React from 'react'
 import {Field, reduxForm} from 'redux-form'
-import { bwmInput} from "../shared/form/BwmInput";
+import {BwmInput} from "../shared/form/BwmInput";
+import { BwmResError} from "../shared/form/BwnResError";
 
 
 const RegisterForm = props => {
-  const {handleSubmit, pristine, reset, submitting, submitCb, valid} = props;
+  const { handleSubmit, pristine, submitting, submitCb, valid, errors } = props
+
   return (
     <form onSubmit={handleSubmit(submitCb)}>
-
       <Field
         name="username"
         type="text"
-        className='form-control'
-        component={bwmInput}
         label='Username'
+        className='form-control'
+        component={BwmInput}
       />
-
       <Field
         name="email"
         type="email"
-        className='form-control'
-        component={bwmInput}
         label='Email'
+        className='form-control'
+        component={BwmInput}
       />
-
       <Field
         name="password"
         type="password"
-        className='form-control'
-        component={bwmInput}
         label='Password'
+        className='form-control'
+        component={BwmInput}
       />
       <Field
         name="passwordConfirmation"
         type="password"
-        label='Confirm Password'
+        label='Password Confirmation'
         className='form-control'
-        component={bwmInput}
+        component={BwmInput}
       />
-      <div>
-        <button type="submit"
-                className='btn btn-bwm'
-                disabled={!valid || pristine || submitting}>
-          Submit
-        </button>
-
-      </div>
+      <button className='btn btn-bwm btn-form' type="submit" disabled={!valid || pristine || submitting}>
+        Register
+      </button>
+      <BwmResError errors={errors} />
     </form>
   )
 }
 const validate = values => {
   const errors = {}
   if (!values.username) {
-    errors.username = 'User name is required'
+    errors.username = 'User name is required!'
   }
   if (values.username && values.username.length < 4) {
     errors.username = 'User name must be at 4 Characters'

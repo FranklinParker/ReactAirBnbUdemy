@@ -1,20 +1,34 @@
 import React, {Component} from 'react';
 import RegisterForm from './RegisterForm'
-
+import * as actions from '../../actions/index';
 
 export class Register extends Component {
+  constructor(){
+    super();
+    this.state = {
+      errors: []
+    }
+    this.registerUser = this.registerUser.bind(this);
+  }
   registerUser(userData) {
-    alert(JSON.stringify(userData, null, 2));
+    actions.register(userData)
+      .then((register) => {
+          console.log('success', register);
+        },
+        (errors) => {
+          this.setState({errors});
+        });
   }
 
   render() {
+    const {errors} = this.state;
     return (
       <section id='register'>
         <div className='bwm-form'>
           <div className='row'>
             <div className='col-md-5'>
               <h1>Register</h1>
-              <RegisterForm submitCb={this.registerUser}/>
+              <RegisterForm submitCb={this.registerUser} errors={errors}/>
             </div>
             <div className='col-md-6 ml-auto'>
               <div className='image-container'>

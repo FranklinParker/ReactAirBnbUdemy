@@ -1,7 +1,7 @@
 import React from 'react'
 
 
-export const bwmInput = ({
+export const BwmInput = ({
                               input,
                               label,
                               className,

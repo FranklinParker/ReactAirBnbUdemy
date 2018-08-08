@@ -8,7 +8,6 @@ import {
 import axios from 'axios';
 
 
-
 const fetchRentalByIdInit = () => {
   return {
     type: FETCH_RENTAL_BY_ID_INIT
@@ -38,11 +37,11 @@ export const fetchRentalsSuccess = (rentals) => {
 }
 
 export const fetchRentals = () => {
-  return dispatch =>{
+  return dispatch => {
     dispatch(fetchRentalsInit());
     axios.get('/api/v1/rentals')
-      .then(resp=> resp.data)
-      .then(rentals=>  dispatch(fetchRentalsSuccess(rentals)) );
+      .then(resp => resp.data)
+      .then(rentals => dispatch(fetchRentalsSuccess(rentals)));
 
   }
 
@@ -52,9 +51,21 @@ export const fetchRentalById = (rentalId) => {
     dispatch(fetchRentalByIdInit());
 
     axios.get(`/api/v1/rentals/${rentalId}`)
-      .then(resp=> resp.data)
-      .then(rental=> dispatch(fetchRentalByIdSuccess(rental))
+      .then(resp => resp.data)
+      .then(rental => dispatch(fetchRentalByIdSuccess(rental))
       );
   }
+}
+
+// auth actions
+
+export const register = (userData) => {
+  return axios.post('/api/v1/users/register', {...userData})
+    .then((resp) => {
+        return resp.data;
+      },
+      (err) => {
+        return Promise.reject(err.response.data.errors);
+      });
 }
 
