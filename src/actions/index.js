@@ -4,7 +4,7 @@ import {
   FETCH_RENTAL_BY_ID_SUCCESS,
   FETCH_RENTAL_BY_ID_INIT,
   FETCH_RENTALS_SUCCESS,
-  FETCH_RENTALS_INIT, LOGIN_SUCCESS, LOGIN_FAILURE
+  FETCH_RENTALS_INIT, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT
 } from "./types";
 
 import axios from 'axios';
@@ -99,12 +99,19 @@ export const login = (userData) => {
     axios.post('/api/v1/users/auth', {...userData})
       .then(resp => resp.data)
       .then((token) => {
-          localStorage.setItem('auth_token', token);
+          authService.saveToken(token);
           dispatch(loginSuccess());
         }
       ).catch(({response}) => {
       dispatch(loginFailure(response.data.errors));
     })
+  }
+}
+
+export const logout = () => {
+  authService.invalidateUser();
+  return {
+    type: LOGOUT
   }
 }
 

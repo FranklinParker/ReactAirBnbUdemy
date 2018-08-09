@@ -8,6 +8,7 @@ import './App.css';
 import Login from "./components/login/Login";
 import {Register} from "./components/register/Register";
 import * as actions from 'actions';
+import {logout} from "./actions";
 
 const store = require('./reducers').init();
 
@@ -17,6 +18,9 @@ class App extends Component {
     this.checkAuthState();
   }
 
+  logout(){
+    store.dispatch(actions.logout());
+  }
   checkAuthState() {
     store.dispatch(actions.checkAuthState());
   }
@@ -25,7 +29,7 @@ class App extends Component {
       <Provider store={store}>
         <BrowserRouter>
           <div className="App">
-            <Header/>
+            <Header logout={this.logout}/>
             <div className="container">
               <Route exact path='/' render={() => <Redirect to='/rentals'/>}/>
               <Route exact path="/login" component={Login}/>
