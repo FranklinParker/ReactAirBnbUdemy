@@ -5,8 +5,6 @@ import * as actions from "../../actions/index";
 import {Redirect} from 'react-router-dom';
 
 
-
-
 class Login extends Component {
   constructor() {
     super();
@@ -22,6 +20,9 @@ class Login extends Component {
 
   render() {
     const {errors, isAuth} = this.props.auth;
+    console.log(this.props);
+    const { successRegister } = this.props.location.state || false;
+
     if(isAuth){
       return (
         <Redirect to={{pathname:'/rentals'}}/>
@@ -33,6 +34,11 @@ class Login extends Component {
           <div className="row">
             <div className="col-md-5">
               <h1>Login</h1>
+              {successRegister &&
+                <div className='alert alert-success'>
+                  <p> You have successfully registered, please login!</p>
+                </div>
+              }
               <LoginForm submitCb={this.loginUser} errors={errors}/>
             </div>
             <div className="col-md-6 ml-auto">
