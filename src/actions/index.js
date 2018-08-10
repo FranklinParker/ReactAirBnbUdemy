@@ -1,4 +1,6 @@
 import authService from '../services/auth-service';
+import axiosService from '../services/axios-service';
+
 
 import {
   FETCH_RENTAL_BY_ID_SUCCESS,
@@ -9,6 +11,8 @@ import {
 
 import axios from 'axios';
 
+
+const axiosInstance = axiosService.getInstance();
 
 const fetchRentalByIdInit = () => {
   return {
@@ -41,7 +45,7 @@ export const fetchRentalsSuccess = (rentals) => {
 export const fetchRentals = () => {
   return dispatch => {
     dispatch(fetchRentalsInit());
-    axios.get('/api/v1/rentals')
+    axiosInstance.get('/rentals')
       .then(resp => resp.data)
       .then(rentals => dispatch(fetchRentalsSuccess(rentals)));
 

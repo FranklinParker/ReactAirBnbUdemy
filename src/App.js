@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {BrowserRouter, Route, Redirect} from 'react-router-dom';
-import {Header} from './components/shared/Header';
+import Header from './components/shared/Header';
 import RentalListing from './components/rental/rental-listing/RentalListing';
 import RentalDetail from "./components/rental/rental-detail/RentalDetail";
 import {Provider} from 'react-redux';
@@ -8,7 +8,8 @@ import './App.css';
 import Login from "./components/login/Login";
 import {Register} from "./components/register/Register";
 import * as actions from 'actions';
-import {logout} from "./actions";
+import {ProtectedRoute} from "./components/shared/auth/ProtectedRoute";
+import {LoggedInRoute} from "./components/shared/auth/LoggedInRoute";
 
 const store = require('./reducers').init();
 
@@ -32,10 +33,10 @@ class App extends Component {
             <Header logout={this.logout}/>
             <div className="container">
               <Route exact path='/' render={() => <Redirect to='/rentals'/>}/>
-              <Route exact path="/login" component={Login}/>
-              <Route exact path="/register" component={Register}/>
+              <LoggedInRoute exact path="/login" component={Login}/>
+              <LoggedInRoute exact path="/register" component={Register}/>
               <Route exact path="/rentals" component={RentalListing}/>
-              <Route exact path="/rentals/:id" component={RentalDetail}/>
+              <ProtectedRoute exact path="/rentals/:id" component={RentalDetail}/>
 
             </div>
           </div>
