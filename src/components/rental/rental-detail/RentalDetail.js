@@ -5,7 +5,7 @@ import {RentalDetailInfo} from "./RentalDetailInfo";
 import { RentalMap} from "./RentalMap";
 
 
-export class RentalDetail extends Component {
+class RentalDetail extends Component {
   componentWillMount() {
     const rentalId = this.props.match.params.id;
     this.props.dispatch(actions.fetchRentalById(rentalId));
