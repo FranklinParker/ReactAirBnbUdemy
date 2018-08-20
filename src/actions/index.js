@@ -91,7 +91,7 @@ export const loginFailure = (errors) => {
 
 export const checkAuthState = () => {
   return function (dispatch) {
-    if(authService.isAuthenticated()){
+    if (authService.isAuthenticated()) {
       dispatch(loginSuccess());
     }
   }
@@ -119,3 +119,10 @@ export const logout = () => {
   }
 }
 
+// booking
+
+export const createBooking = (booking) => {
+  return axiosInstance.post('/bookings', booking)
+    .then(resp => resp.data)
+    .catch(({response}) => Promise.reject(response.data.errors));
+}
