@@ -22,7 +22,7 @@ export const rentalReducer = (state = INITIAL_STATE.rentals, action) => {
     case FETCH_RENTALS_INIT:
       return {...state, data: [], errors: []};
     case FETCH_RENTALS_SUCCESS:
-      return {...state, data: action.rentals};
+      return {...state, data: action.rentals, errors:[]};
     case FETCH_RENTALS_FAIL:
       return Object.assign({}, state, {errors: action.errors, data:[]})
     default:

@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import {RentalList} from './RentalList';
+import { toUpperCase } from 'helpers';
+
 import * as actions from 'actions';
 
 
@@ -24,14 +26,30 @@ class RentalSearchListing extends Component {
 
     this.props.dispatch(actions.fetchRentals(searchedCity));
   }
+
+  renderTitle() {
+    const { errors, data } = this.props.rentals;
+    const { searchedCity } = this.state;
+    let title = '';
+
+    if (errors.length > 0) {
+      title = errors[0].detail;
+    }
+
+    if(data.length > 0) {
+      title = `Your Home in City of ${toUpperCase(searchedCity)}`;
+    }
+
+    return <h1 className="page-title">{title}</h1>
+  }
+
   render() {
     return (
-      <section id='rentalListing'>
-        <h1 className='page-title'>Your Home in {this.state.searchedCity}</h1>
-        <RentalList rentals={this.props.rentals}/>
+      <section id="rentalListing">
+        {this.renderTitle()}
+        <RentalList rentals={this.props.rentals.data} />
       </section>
-
-    );
+    )
   }
 
 
@@ -39,7 +57,7 @@ class RentalSearchListing extends Component {
 
 function mapStateToProps(state){
   return {
-    rentals: state.rentals.data
+    rentals: state.rentals
   }
 }
 
