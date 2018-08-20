@@ -11,13 +11,13 @@ class RentalSearchListing extends Component {
  constructor(){
    super();
    this.state ={
-     city: ''
+     searchedCity: ''
    }
  }
   componentWillMount(){
-    const city = this.props.match.params.city;
+    const searchedCity = this.props.match.params.city;
     this.setState({
-      city
+      searchedCity
     });
     this.props.dispatch(actions.fetchRentals());
 
@@ -25,8 +25,7 @@ class RentalSearchListing extends Component {
   render() {
     return (
       <section id='rentalListing'>
-        <h5>{this.state.city}</h5>
-        <h1 className='page-title'>Your Home All Around the World</h1>
+        <h1 className='page-title'>Your Home in {this.state.searchedCity}</h1>
         <RentalList rentals={this.props.rentals}/>
       </section>
 
