@@ -1,8 +1,9 @@
 import React from 'react';
 import DateRangePicker from 'react-bootstrap-daterangepicker';
-import { BookingModal} from './BookingModal'
+import {BookingModal} from './BookingModal'
 import {getRangeOfDates} from "../../helpers";
 import * as moment from 'moment';
+import * as actions from '../../actions'
 
 export class Booking extends React.Component {
 
@@ -19,11 +20,29 @@ export class Booking extends React.Component {
       },
       modal: {
         open: false
-      }
+      },
+      errors: []
     }
     this.checkInvalidDate = this.checkInvalidDate.bind(this);
     this.handleApply = this.handleApply.bind(this);
-    this.cancelProposedBooking = this.cancelProposedBooking.bind(this);
+    this.cancelConfirmation = this.cancelConfirmation.bind(this);
+    this.reserveRental = this.reserveRental.bind(this);
+
+  }
+
+  reserveRental() {
+
+    actions.createBooking(this.state.proposedBooking)
+      .then((booking) => {
+          this.addNewBookedOutDates(booking);
+          this.cancelConfirmation();
+        },
+        (errors) => {
+          this.setState({
+            errors
+          })
+        })
+
   }
 
   componentWillMount() {
@@ -32,14 +51,21 @@ export class Booking extends React.Component {
 
   getBookedOutDates() {
     const {bookings} = this.props.rental;
+    console.log('bookings ', bookings)
     if (bookings && bookings.length > 0) {
       bookings.forEach(booking => {
-        let bookedDates = getRangeOfDates(booking.startAt, booking.endAt);
+        let bookedDates = getRangeOfDates(booking.startAt, booking.endAt, 'Y/MM/DD');
         this.bookedOutDates.push(...bookedDates);
       });
 
     }
+    console.log('bookedoutdates', this.bookedOutDates );
 
+  }
+
+  addNewBookedOutDates(booking){
+    const dateRange = getRangeOfDates(booking.startAt, booking.endAt, 'Y/MM/DD');
+    this.bookedOutDates.push(...dateRange);
   }
 
   handleApply(event, picker) {
@@ -58,8 +84,6 @@ export class Booking extends React.Component {
   }
 
   selectGuests(event) {
-
-
     this.setState({
       proposedBooking: {
         ...this.state.proposedBooking,
@@ -73,8 +97,8 @@ export class Booking extends React.Component {
   }
 
   confirmProposedBooking() {
-    const { startAt, endAt} =  this.state.proposedBooking;
-    const days = getRangeOfDates(startAt, endAt).length -1;
+    const {startAt, endAt} = this.state.proposedBooking;
+    const days = getRangeOfDates(startAt, endAt).length - 1;
     const {rental} = this.props;
     this.setState({
       proposedBooking: {
@@ -91,19 +115,19 @@ export class Booking extends React.Component {
 
 
   }
-  cancelProposedBooking() {
+
+  cancelConfirmation() {
     this.setState({
       modal: {
         open: false
       }
     });
-    console.log('cancel', this.state);
 
   }
 
   render() {
     const {rental} = this.props;
-
+    const {startAt, endAt, guests} = this.state.proposedBooking;
 
     return (
       <div className='booking'>
@@ -131,6 +155,7 @@ export class Booking extends React.Component {
                  placeholder=''></input>
         </div>
         <button className='btn btn-bwm btn-confirm btn-block'
+                disabled={!startAt || !endAt || !guests}
                 onClick={() => {
                   this.confirmProposedBooking();
                 }}>Reserve place now
@@ -141,9 +166,11 @@ export class Booking extends React.Component {
           More than 500 people checked this rental in last month.
         </p>
         <BookingModal open={this.state.modal.open}
-                      closeModal={this.cancelProposedBooking}
-                      booking ={ this.state.proposedBooking}
-                     />
+                      closeModal={this.cancelConfirmation}
+                      booking={this.state.proposedBooking}
+                      confirmModal={this.reserveRental}
+                      errors={this.state.errors}
+        />
       </div>
     )
   }
