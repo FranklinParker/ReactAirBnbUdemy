@@ -15,7 +15,7 @@ export class Booking extends React.Component {
       proposedBooking: {
         startAt: '',
         endAt: '',
-        guests: 0,
+        guests: '',
         rental: {}
       },
       modal: {
@@ -36,6 +36,7 @@ export class Booking extends React.Component {
       .then((booking) => {
           this.addNewBookedOutDates(booking);
           this.cancelConfirmation();
+          this.resetData();
         },
         (errors) => {
           this.setState({
@@ -51,7 +52,6 @@ export class Booking extends React.Component {
 
   getBookedOutDates() {
     const {bookings} = this.props.rental;
-    console.log('bookings ', bookings)
     if (bookings && bookings.length > 0) {
       bookings.forEach(booking => {
         let bookedDates = getRangeOfDates(booking.startAt, booking.endAt, 'Y/MM/DD');
@@ -59,13 +59,22 @@ export class Booking extends React.Component {
       });
 
     }
-    console.log('bookedoutdates', this.bookedOutDates );
 
   }
 
   addNewBookedOutDates(booking){
     const dateRange = getRangeOfDates(booking.startAt, booking.endAt, 'Y/MM/DD');
     this.bookedOutDates.push(...dateRange);
+  }
+
+  resetData(){
+    this.dateRef.current.value= '';
+    this.setState({
+      proposedBooking: {
+        guests:'',
+        rental: {}
+      }
+    })
   }
 
   handleApply(event, picker) {
@@ -111,7 +120,6 @@ export class Booking extends React.Component {
         open: true
       }
     });
-    console.log('confirm', this.state);
 
 
   }
@@ -146,6 +154,7 @@ export class Booking extends React.Component {
         <div className='form-group'>
           <label htmlFor='guests'>Guests</label>
           <input type='number'
+                 value={guests}
                  onChange={(event) => {
                    this.selectGuests(event)
                  }}
@@ -169,6 +178,7 @@ export class Booking extends React.Component {
                       closeModal={this.cancelConfirmation}
                       booking={this.state.proposedBooking}
                       confirmModal={this.reserveRental}
+                      rentalPrice ={rental.dailyRate}
                       errors={this.state.errors}
         />
       </div>
