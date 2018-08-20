@@ -3,7 +3,9 @@ import DateRangePicker from 'react-bootstrap-daterangepicker';
 import {BookingModal} from './BookingModal'
 import {getRangeOfDates} from "../../helpers";
 import * as moment from 'moment';
-import * as actions from '../../actions'
+import * as actions from '../../actions';
+import { ToastContainer, toast } from 'react-toastify';
+
 
 export class Booking extends React.Component {
 
@@ -37,6 +39,7 @@ export class Booking extends React.Component {
           this.addNewBookedOutDates(booking);
           this.cancelConfirmation();
           this.resetData();
+          toast.success('Booking has been successfully created!');
         },
         (errors) => {
           this.setState({
@@ -139,6 +142,7 @@ export class Booking extends React.Component {
 
     return (
       <div className='booking'>
+        <ToastContainer/>
         <h3 className='booking-price'>$ {rental.dailyRate} HARDCODED <span
           className='booking-per-night'>per night</span></h3>
         <hr></hr>
