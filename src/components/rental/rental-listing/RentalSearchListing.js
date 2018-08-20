@@ -15,12 +15,14 @@ class RentalSearchListing extends Component {
    }
  }
   componentWillMount(){
-    const searchedCity = this.props.match.params.city;
-    this.setState({
-      searchedCity
-    });
-    this.props.dispatch(actions.fetchRentals());
+    this.searchRentalsByCity();
+  }
 
+  searchRentalsByCity() {
+    const searchedCity = this.props.match.params.city;
+    this.setState({searchedCity});
+
+    this.props.dispatch(actions.fetchRentals(searchedCity));
   }
   render() {
     return (
