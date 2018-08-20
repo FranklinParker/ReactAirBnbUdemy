@@ -46,30 +46,23 @@ export class Booking extends React.Component {
     const startAt = picker.startDate.format('Y/MM/DD');
     const endAt = picker.endDate.format('Y/MM/DD');
     this.dateRef.current.value = startAt + ' to ' + endAt;
-    const { guests} =  this.state.proposedBooking;
-    const {rental} = this.props;
 
     this.setState({
       proposedBooking: {
+        ...this.state.proposedBooking,
         startAt,
-        endAt,
-        guests,
-        rental
+        endAt
       }
     });
     console.log('date selected', this.state);
   }
 
   selectGuests(event) {
-    const { startAt, endAt} =  this.state.proposedBooking;
-    const {rental} = this.props;
 
 
     this.setState({
       proposedBooking: {
-        startAt,
-        endAt,
-        rental,
+        ...this.state.proposedBooking,
         guests: parseInt(event.target.value, 10)
       }
     });
@@ -80,14 +73,12 @@ export class Booking extends React.Component {
   }
 
   confirmProposedBooking() {
-    const { startAt, endAt, guests} =  this.state.proposedBooking;
+    const { startAt, endAt} =  this.state.proposedBooking;
     const days = getRangeOfDates(startAt, endAt).length -1;
     const {rental} = this.props;
     this.setState({
       proposedBooking: {
-        startAt,
-        endAt,
-        guests,
+        ...this.state.proposedBooking,
         days,
         totalPrice: days * rental.dailyRate,
         rental
