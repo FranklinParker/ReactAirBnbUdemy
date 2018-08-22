@@ -5,6 +5,7 @@ export class RentalCreate extends React.Component {
   constructor(){
     super();
     this.createRental = this.createRental.bind(this);
+    this.rentalCategories = ['house', 'condo', 'apartment'];
   }
   createRental(rentalData) {
    console.log(rentalData);
@@ -16,7 +17,8 @@ export class RentalCreate extends React.Component {
           <div className='row'>
             <div className='col-md-5'>
               <h1 className='page-title'>Create Rental</h1>
-              <RentalCreateForm submitCb={this.createRental}/>
+              <RentalCreateForm submitCb={this.createRental}
+                 options={this.rentalCategories}/>
             </div>
             <div className='col-md-6 ml-auto'>
               <div className='image-container'>

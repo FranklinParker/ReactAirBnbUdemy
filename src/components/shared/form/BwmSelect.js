@@ -7,17 +7,23 @@ export const BwmSelect = ({
                             className,
                             options,
                             meta: {touched, error, warning}
-                          }) => (
-  <div className='form-group'>
-    <label>{label}</label>
-    <div className='input-group'>
-      <select {...input} className={className}>
-        <option>Option 1</option>
-        <option>Option 1</option>
+                          }) => {
+  function renderOptions (){
+    return options.map((option, index)=>{
+      return <option key={index} value={option}>{option}</option>
 
-      </select>
+    });
+  }
+  return(
+    <div className='form-group'>
+      <label>{label}</label>
+      <div className='input-group'>
+        <select {...input} className={className}>
+          {renderOptions()}
+        </select>
+      </div>
+      {touched &&
+      ((error && <div className='alert alert-danger'>{error}</div>))}
     </div>
-    {touched &&
-    ((error && <div className='alert alert-danger'>{error}</div>))}
-  </div>
-);
+  );
+}

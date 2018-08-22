@@ -6,7 +6,7 @@ import {BwmSelect} from "../../shared/form/BwmSelect";
 
 
 const RentalCreateForm = props => {
-  const {handleSubmit, pristine, submitting, submitCb, valid} = props
+  const {handleSubmit, pristine, submitting, submitCb, valid, options} = props
   return (
     <form onSubmit={handleSubmit(submitCb)}>
       <Field
@@ -43,6 +43,7 @@ const RentalCreateForm = props => {
         label='Category'
         className='form-control'
         component={BwmSelect}
+        options={options}
       />
       <Field
         name="bedrooms"
