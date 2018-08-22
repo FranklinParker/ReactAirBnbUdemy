@@ -31,6 +31,13 @@ class AuthService {
     localStorage.removeItem(this.tokenKey);
 
   }
+  decode(token) {
+    return jwt.decode(token);
+  }
+
+  getUsername() {
+    return this.decode(this.getToken()).username;
+  }
 }
 
 export default new AuthService();
