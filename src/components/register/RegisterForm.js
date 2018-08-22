@@ -1,7 +1,7 @@
 import React from 'react'
 import {Field, reduxForm} from 'redux-form'
 import {BwmInput} from "../shared/form/BwmInput";
-import { BwmResError} from "../shared/form/BwnResError";
+import { BwmResError} from "../shared/form/BwmResError";
 
 
 const RegisterForm = props => {
