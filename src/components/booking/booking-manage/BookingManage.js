@@ -11,8 +11,8 @@ class BookingManage extends React.Component{
     const { userBookings} = this.props;
     return (
       <div>
-        { userBookings.data.map((booking)=>{
-           return (<p> {booking.startAt} - {booking.endAt} </p>)
+        { userBookings.data.map((booking,index)=>{
+           return (<p key={index}> {booking.startAt} - {booking.endAt} </p>)
         })}
       </div>
     );
