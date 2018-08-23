@@ -1,9 +1,30 @@
 import React from 'react';
+import {connect} from "react-redux";
+import * as actions from "../../../actions/index";
 
-export class BookingManage extends React.Component{
+
+class BookingManage extends React.Component{
+  componentWillMount() {
+    this.props.dispatch(actions.fetchBookings());
+  }
   render(){
+    const { userBookings} = this.props;
     return (
-      <h1>I Booking manager</h1>
+      <div>
+        { userBookings.data.map((booking)=>{
+           return (<p> {booking.startAt} - {booking.endAt} </p>)
+        })}
+      </div>
     );
   }
 }
+
+
+
+function mapStateToProps(state) {
+  return {
+    userBookings: state.userBookings
+  }
+}
+
+export default connect(mapStateToProps)(BookingManage)

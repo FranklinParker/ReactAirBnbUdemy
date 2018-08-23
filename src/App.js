@@ -12,7 +12,7 @@ import {ProtectedRoute} from "./components/shared/auth/ProtectedRoute";
 import {LoggedInRoute} from "./components/shared/auth/LoggedInRoute";
 import RentalSearchListing from "./components/rental/rental-listing/RentalSearchListing";
 import {RentalCreate} from "./components/rental/rental-create/RentalCreate";
-import {BookingManage} from "./components/booking/booking-manage/BookingManage";
+import BookingManage from "./components/booking/booking-manage/BookingManage";
 import {RentalManage} from "./components/rental/rental-manage/RentalManage";
 
 const store = require('./reducers').init();

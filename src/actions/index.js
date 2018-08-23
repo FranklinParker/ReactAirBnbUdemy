@@ -6,7 +6,8 @@ import {
   FETCH_RENTAL_BY_ID_SUCCESS,
   FETCH_RENTAL_BY_ID_INIT,
   FETCH_RENTALS_SUCCESS,
-  FETCH_RENTALS_INIT, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT, FETCH_RENTALS_FAIL
+  FETCH_RENTALS_INIT, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT, FETCH_RENTALS_FAIL, FETCH_USER_BOOKINGS_INIT,
+  FETCH_USER_BOOKINGS_SUCCESS, FETCH_USER_BOOKINGS_FAIL
 } from "./types";
 
 import axios from 'axios';
@@ -51,16 +52,17 @@ export const fetchRentalErrors = (errors) => {
 }
 
 export const fetchRentals = (city) => {
-  const url = city?`/rentals?city=${city}`:'/rentals';
+  const url = city ? `/rentals?city=${city}` : '/rentals';
   return dispatch => {
     dispatch(fetchRentalsInit());
     axiosInstance.get(url)
       .then(resp => resp.data)
       .then(rentals => dispatch(fetchRentalsSuccess(rentals)))
-      .catch(({response})=>dispatch(fetchRentalErrors(response.data.errors)));
+      .catch(({response}) => dispatch(fetchRentalErrors(response.data.errors)));
 
   }
 }
+
 export const fetchRentalById = (rentalId) => {
   return function (dispatch) {
     dispatch(fetchRentalByIdInit());
@@ -129,14 +131,6 @@ export const logout = () => {
   }
 }
 
-// booking
-
-export const createBooking = (booking) => {
-  return axiosInstance.post('/bookings', booking)
-    .then(resp => resp.data)
-    .catch(({response}) => Promise.reject(response.data.errors));
-}
-
 
 // rental
 
@@ -146,4 +140,43 @@ export const createRentals = (rental) => {
     .catch(({response}) => Promise.reject(response.data.errors));
 }
 
+// bookings
 
+
+export const createBooking = (booking) => {
+  return axiosInstance.post('/bookings', booking)
+    .then(resp => resp.data)
+    .catch(({response}) => Promise.reject(response.data.errors));
+}
+
+
+export const fetchUserBookingsErrors = (errors) => {
+
+  return {
+    type: FETCH_USER_BOOKINGS_FAIL,
+    errors
+  }
+}
+export const fetchUserBookingSuccess = (userBookings) => {
+
+  return {
+    type: FETCH_USER_BOOKINGS_SUCCESS,
+    userBookings
+  }
+}
+const fetchUserBookingsInit = () => {
+  return {
+    type: FETCH_USER_BOOKINGS_INIT
+  }
+}
+
+export const fetchBookings = () => {
+  return dispatch => {
+    dispatch(fetchUserBookingsInit());
+    axiosInstance.get('/bookings/manage')
+      .then(resp => resp.data)
+      .then(bookings => dispatch(fetchUserBookingSuccess(bookings)))
+      .catch(({response}) => dispatch(fetchUserBookingsErrors(response.data.errors)));
+
+  }
+}
