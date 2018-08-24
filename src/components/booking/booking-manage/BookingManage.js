@@ -10,13 +10,13 @@ class BookingManage extends React.Component {
   }
 
   render() {
-    const {userBookings} = this.props;
+    const {data: bookings, isFetching} = this.props.userBookings;
     return (
       <section id='userBookings'>
         <h1 className='page-title'>My Bookings</h1>
         <div className='row'>
 
-          {userBookings.data.map((booking, index) =>
+          {bookings.map((booking, index) =>
             <div className='col-md-4' key={index}>
               <div className='card text-center'>
                 <div className='card-header'>
@@ -44,10 +44,13 @@ class BookingManage extends React.Component {
             </div>
           )}
         </div>
+        {!isFetching && bookings.length === 0 &&
         <div className='alert alert-warning'>
           You have no bookings created go to rentals section and book your place today.
           <Link style={{'marginLeft': '10px'}} className='btn btn-bwm' to='rentals index page'>Available Rental</Link>
         </div>
+        }
+
       </section>
 
 
