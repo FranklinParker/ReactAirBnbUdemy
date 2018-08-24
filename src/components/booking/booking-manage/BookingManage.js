@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from "react-redux";
 import * as actions from "../../../actions/index";
 import {Link} from 'react-router-dom';
+import { pretifyDate, toUpperCase } from 'helpers';
 
 
 class BookingManage extends React.Component {
@@ -25,11 +26,11 @@ class BookingManage extends React.Component {
                 <div className='card-block'>
                   {booking.rental &&
                   <div>
-                    <h4 className="card-title"> {booking.rental.title} - {booking.rental.city}</h4>
+                    <h4 className="card-title"> {booking.rental.title} - {toUpperCase(booking.rental.city)}</h4>
                     <p className="card-text booking-desc">{booking.rental.description}</p>
                   </div>
                   }
-                  <p className='card-text booking-days'>{booking.startAt} - {booking.endAt} | {booking.days} days</p>
+                  <p className='card-text booking-days'>{pretifyDate(booking.startAt)} - {pretifyDate(booking.endAt)} | {booking.days} days</p>
                   <p className='card-text booking-price'><span>Price: </span>
                     <span className='booking-price-value'>{booking.totalPrice} $</span>
                   </p>
@@ -38,7 +39,7 @@ class BookingManage extends React.Component {
                   }
                 </div>
                 <div className='card-footer text-muted'>
-                  Created {booking.created}
+                  Created {pretifyDate(booking.created)}
                 </div>
               </div>
             </div>
