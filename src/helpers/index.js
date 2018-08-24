@@ -3,6 +3,7 @@ import * as moment from 'moment';
 
 export const isShared = shared=>shared? 'shared': 'entire';
 export const toUpperCase = value => value? titlelize(value):''
+export const pretifyDate = date => moment(date).format('MMM Do YY')
 
 export const getRangeOfDates=(startAt, endAt, dateFormat = 'YY/MM/DD')=>{
   const tempDates = [];
