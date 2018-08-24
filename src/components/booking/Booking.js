@@ -151,7 +151,6 @@ class Booking extends React.Component {
         <h3 className='booking-price'>$ {rental.dailyRate} HARDCODED <span
           className='booking-per-night'>per night</span></h3>
         <hr></hr>
-        <hr></hr>
         { !isAuth &&
         <Link className='btn btn-bwm btn-confirm btn-block' to={{pathname: '/login'}}>
           Login to book place.
