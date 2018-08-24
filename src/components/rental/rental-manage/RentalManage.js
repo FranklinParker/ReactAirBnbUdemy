@@ -19,12 +19,10 @@ export class RentalManage extends React.Component {
   }
 
   render() {
-    const {userRentals, errors} = this.state;
+    const {userRentals} = this.state;
     return (
       <div>
-        {userRentals.map((rental, index) => {
-          return (<p key={index}> {rental.street} - {rental.city} </p>)
-        })}
+        {userRentals.map((rental, index) => (<p key={index}> {rental.street} - {rental.city} </p>))}
       </div>
 
 
