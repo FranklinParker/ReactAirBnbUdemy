@@ -14,7 +14,7 @@ export function RentalManageCard(props) {
           <button className='btn btn-bwm'> Bookings</button>
         </div>
         <div className='card-footer text-muted'>
-          Created at {pretifyDate(rental.created)}
+          Created at {pretifyDate(rental.createdAt)}
         </div>
       </div>
     </div>

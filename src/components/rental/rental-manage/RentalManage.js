@@ -8,37 +8,44 @@ export class RentalManage extends React.Component {
     super();
     this.state = {
       userRentals: [],
-      errors: []
+      errors: [],
+      isFetching: false
     }
 
   }
 
   componentWillMount() {
+    this.setState({
+        isFetching: true
+      })
     actions.getUserRentals()
-      .then(userRentals => this.setState({userRentals}),
-        errors => this.setState({errors})
+      .then(userRentals => this.setState({userRentals, isFetching: false}),
+        errors => this.setState({errors,  isFetching: false})
       );
   }
 
-  renderRentals(userRentals){
+  renderRentalCards(userRentals) {
     return userRentals.map((rental, index) =>
-      <RentalManageCard rental={rental}  key={index}/>)
+      <RentalManageCard rental={rental} key={index}/>)
 
 
   }
+
   render() {
-    const {userRentals} = this.state;
+    const {userRentals, isFetching} = this.state;
     return (
       <section id='userRentals'>
         <h1 className='page-title'>My Rentals</h1>
         <div className='row'>
-          { this.renderRentals(userRentals)}
+          {this.renderRentalCards(userRentals)}
         </div>
+        {!isFetching && userRentals.length === 0 &&
         <div className='alert alert-warning'>
           You dont have any rentals currenty created. If you want advertised your property
           please follow this link.
           <Link style={{'marginLeft': '10px'}} className='btn btn-bwm' to='create form'>Register Rental</Link>
         </div>
+        }
 
       </section>
 
