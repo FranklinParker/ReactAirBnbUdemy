@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from "react-redux";
 import * as actions from "../../../actions/index";
 import {Link} from 'react-router-dom';
-import { pretifyDate, toUpperCase } from 'helpers';
+import {BookingCard} from "./BookingCard";
 
 
 class BookingManage extends React.Component {
@@ -18,31 +18,7 @@ class BookingManage extends React.Component {
         <div className='row'>
 
           {bookings.map((booking, index) =>
-            <div className='col-md-4' key={index}>
-              <div className='card text-center'>
-                <div className='card-header'>
-                  {booking.rental ? booking.rental.category : 'Deleted Rental'}
-                </div>
-                <div className='card-block'>
-                  {booking.rental &&
-                  <div>
-                    <h4 className="card-title"> {booking.rental.title} - {toUpperCase(booking.rental.city)}</h4>
-                    <p className="card-text booking-desc">{booking.rental.description}</p>
-                  </div>
-                  }
-                  <p className='card-text booking-days'>{pretifyDate(booking.startAt)} - {pretifyDate(booking.endAt)} | {booking.days} days</p>
-                  <p className='card-text booking-price'><span>Price: </span>
-                    <span className='booking-price-value'>{booking.totalPrice} $</span>
-                  </p>
-                  {booking.rental &&
-                  <Link className="btn btn-bwm" to={`/rentals/${booking.rental._id}`}>Go to Rental</Link>
-                  }
-                </div>
-                <div className='card-footer text-muted'>
-                  Created {pretifyDate(booking.created)}
-                </div>
-              </div>
-            </div>
+            <BookingCard booking={booking} />
           )}
         </div>
         {!isFetching && bookings.length === 0 &&
