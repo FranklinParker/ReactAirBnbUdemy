@@ -32,13 +32,13 @@ export class RentalManage extends React.Component {
               <div className='col-md-4' key={index}>
                 <div className='card text-center'>
                   <div className='card-header'>
-                    Rental Category
+                    {rental.category}
                   </div>
                   <div className='card-block'>
-                    <h4 className='card-title'> Rental Title - Rental City</h4>
-                    <p className='card-text booking-desc'>Rental Description</p>
+                    <h4 className='card-title'> {rental.title} - {rental.city}</h4>
+                    <p className='card-text booking-desc'>{rental.description}</p>
                     <p className='card-text booking-days'>2018/04/04 - 2018/04/06 | 2 days</p>
-                    <p className='card-text booking-price'><span>Price: </span> <span className='booking-price-value'>205 $</span>
+                    <p className='card-text booking-price'><span>Price: </span> <span className='booking-price-value'>{rental.dailyRate} $</span>
                     </p>
                     <Link className='btn btn-bwm' to='rental detail'>Go to Rental</Link>
                   </div>
