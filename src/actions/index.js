@@ -141,7 +141,10 @@ export const createRentals = (rental) => {
 }
 
 export const getUserRentals = ()=>{
-  return axiosInstance.get('/rentals/manage');
+  return axiosInstance.get('/rentals/manage').then(
+    res => res.data,
+    err => Promise.reject(err.response.data.errors)
+  );
 }
 
 // bookings

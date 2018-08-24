@@ -1,19 +1,35 @@
 import React from 'react';
 import * as actions from "../../../actions";
 
-export class RentalManage extends React.Component{
+export class RentalManage extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      userRentals: [],
+      errors: []
+    }
+
+  }
+
   componentWillMount() {
     actions.getUserRentals()
-      .then((rentals)=>{
-        console.log('user rentals', rentals);
-      })
+      .then(userRentals => this.setState({userRentals}),
+        errors => this.setState({errors})
+      );
   }
 
-  render(){
+  render() {
+    const {userRentals, errors} = this.state;
     return (
-      <h1>I Rental manager</h1>
+      <div>
+        {userRentals.map((rental, index) => {
+          return (<p key={index}> {rental.street} - {rental.city} </p>)
+        })}
+      </div>
+
+
     );
+
   }
 }
-
 
