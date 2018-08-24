@@ -43,7 +43,7 @@ export class RentalManage extends React.Component {
         <div className='alert alert-warning'>
           You dont have any rentals currenty created. If you want advertised your property
           please follow this link.
-          <Link style={{'marginLeft': '10px'}} className='btn btn-bwm' to='create form'>Register Rental</Link>
+          <Link style={{'marginLeft': '10px'}} className='btn btn-bwm' to='/rentals/new'>Register Rental</Link>
         </div>
         }
 
