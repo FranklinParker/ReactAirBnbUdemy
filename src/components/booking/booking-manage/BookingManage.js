@@ -10,16 +10,19 @@ class BookingManage extends React.Component {
     this.props.dispatch(actions.fetchBookings());
   }
 
+  renderBookings(bookings){
+    return bookings.map((booking, index) =>
+      <BookingCard booking={booking} key={index} />
+    )
+  }
   render() {
     const {data: bookings, isFetching} = this.props.userBookings;
     return (
       <section id='userBookings'>
         <h1 className='page-title'>My Bookings</h1>
         <div className='row'>
+          { this.renderBookings(bookings)}
 
-          {bookings.map((booking, index) =>
-            <BookingCard booking={booking} />
-          )}
         </div>
         {!isFetching && bookings.length === 0 &&
         <div className='alert alert-warning'>
