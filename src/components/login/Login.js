@@ -20,7 +20,6 @@ class Login extends Component {
 
   render() {
     const {errors, isAuth} = this.props.auth;
-    console.log(this.props);
     const { successRegister } = this.props.location.state || false;
 
     if(isAuth){

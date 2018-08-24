@@ -140,6 +140,10 @@ export const createRentals = (rental) => {
     .catch(({response}) => Promise.reject(response.data.errors));
 }
 
+export const getUserRentals = ()=>{
+  return axiosInstance.get('/rentals/manage');
+}
+
 // bookings
 
 
