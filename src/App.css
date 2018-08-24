@@ -100,6 +100,9 @@
     margin-bottom: 15px;
     font-weight: 300; }
 
+#userRentals .toBeDeleted {
+  border-color: red; }
+
 #userRentals .card {
   margin-bottom: 20px; }
 
@@ -125,6 +128,18 @@
     border-color: #61dafb !important;
     background-color: transparent !important;
     color: #61dafb !important; }
+
+#userRentals .delete-menu {
+  margin-top: 5px; }
+
+#userRentals .btn-danger, #userRentals .btn-success {
+  margin-left: 10px;
+  font-size: 14px; }
+
+#userRentals .btn-warning {
+  font-size: 14px;
+  color: white;
+  margin-left: 10px; }
 
 #userRentals .btn-bwm {
   margin-right: 10px; }

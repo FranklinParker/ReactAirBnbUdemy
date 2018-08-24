@@ -51,6 +51,12 @@ export const fetchRentalErrors = (errors) => {
   }
 }
 
+export const deleteRental = (rentalId) => {
+  return axiosInstance.delete(`/rentals/${rentalId}`).then(
+    res => res.data,
+    err => Promise.reject(err.response.data.errors))
+}
+
 export const fetchRentals = (city) => {
   const url = city ? `/rentals?city=${city}` : '/rentals';
   return dispatch => {
