@@ -37,7 +37,7 @@ app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/bookings', bookingRoutes);
 
 if (process.env.NODE_ENV === 'production') {
-  const appPath = path.join(__dirname, '../dist/AngularClient');
+  const appPath = path.join(__dirname,'..','build');
   app.use(express.static(appPath));
 
   app.get('*', function (req, res) {

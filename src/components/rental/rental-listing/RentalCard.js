@@ -8,7 +8,6 @@ export function RentalCard(props) {
   return (
     <div className={props.colNum}>
       <Link to={`/rentals/${rental._id}`} className='rental-detail-link'>
-
         <div className='card bwm-card'>
           <img className='card-img-top' src={rental.image} alt={rental.title}></img>
           <div className='card-block'>

@@ -112,7 +112,7 @@ class Booking extends React.Component {
     return this.bookedOutDates.includes(date.format('Y/MM/DD')) || date.diff(moment(), 'days') < -1;
   }
 
-  confirmProposedBooking() {
+  confirmProposedData() {
     const {startAt, endAt} = this.state.proposedBooking;
     const days = getRangeOfDates(startAt, endAt).length - 1;
     const {rental} = this.props;
@@ -128,8 +128,8 @@ class Booking extends React.Component {
       }
     });
 
-
   }
+
 
   cancelConfirmation() {
     this.setState({
@@ -179,6 +179,7 @@ class Booking extends React.Component {
             </input>
           </div>
           <button disabled={!startAt || !endAt || !guests} onClick={() => this.confirmProposedData()} className='btn btn-bwm btn-confirm btn-block'>Reserve place now</button>
+
         </React.Fragment>
         }
         <hr></hr>
