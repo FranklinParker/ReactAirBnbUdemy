@@ -112,7 +112,7 @@ class Booking extends React.Component {
     return this.bookedOutDates.includes(date.format('Y/MM/DD')) || date.diff(moment(), 'days') < -1;
   }
 
-  confirmProposedBooking() {
+  confirmProposedData() {
     const {startAt, endAt} = this.state.proposedBooking;
     const days = getRangeOfDates(startAt, endAt).length - 1;
     const {rental} = this.props;
