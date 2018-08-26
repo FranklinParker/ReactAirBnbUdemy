@@ -134,4 +134,38 @@ router.delete('/:id', userCtl.authMiddleware, function (req, res) {
 });
 
 
+
+
+router.patch('/:id', userCtl.authMiddleware, function (req, res) {
+  const user = res.locals.user;
+  const rentalData = req.body;
+
+  Rental
+    .findById(req.params.id)
+    .populate('user', '_id')
+    .exec(function (err, foundRental) {
+
+      if (err) {
+        return res.status(422).send({errors: normalizeErrors(err.errors)});
+      }
+
+      if (user.id !== foundRental.user.id) {
+        return res.status(422).send({errors: [{title: 'Invalid User!', detail: 'You are not rental owner!'}]});
+      }
+
+      foundRental.set(rentalData);
+
+      foundRental.save((err, updatedRental)=>{
+        if (err) {
+          return res.status(422).send({errors: normalizeErrors(err.errors)});
+        }
+        return res.status(200).send(updatedRental);
+      });
+
+
+    });
+});
+
+
+
 module.exports = router;
