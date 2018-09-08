@@ -134,8 +134,6 @@ router.delete('/:id', userCtl.authMiddleware, function (req, res) {
 });
 
 
-
-
 router.patch('/:id', userCtl.authMiddleware, function (req, res) {
   const user = res.locals.user;
   const rentalData = req.body;
@@ -155,7 +153,7 @@ router.patch('/:id', userCtl.authMiddleware, function (req, res) {
 
       foundRental.set(rentalData);
 
-      foundRental.save((err, updatedRental)=>{
+      foundRental.save((err, updatedRental) => {
         if (err) {
           return res.status(422).send({errors: normalizeErrors(err.errors)});
         }
@@ -165,7 +163,5 @@ router.patch('/:id', userCtl.authMiddleware, function (req, res) {
 
     });
 });
-
-
 
 module.exports = router;
